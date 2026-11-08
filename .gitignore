@@ -1,0 +1,8 @@
+# Antigravity project-specific credentials & config
+.agents/mcp_config.json
+
+node_modules/
+dist/
+.agents/
+.env
+.env.*
