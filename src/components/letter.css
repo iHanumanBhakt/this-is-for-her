@@ -1,0 +1,24 @@
+.letter-room {position:relative;min-height:100svh;padding:clamp(16px,4vw,55px);color:#f4e7d3;background:radial-gradient(ellipse at top,#65363444,transparent 70%)}
+.letter-sheet {max-width:660px;margin:auto;padding:clamp(18px,5vw,54px);background:linear-gradient(130deg,#2c2022f7,#171318ee);border:1px solid #8e674649;border-radius:42px 5px;box-shadow:0 16px 60px #0005}
+.letter-tools,.letter-foot {display:flex;align-items:center;justify-content:space-between;gap:16px;color:#e7c69c;font:15px Georgia,serif}
+.letter-tools button,.letter-foot button {min-height:44px;padding:0 8px}
+.lamp-trail {display:flex;justify-content:space-between;position:relative;margin:12px 0 22px}
+.lamp-trail:before {content:"";position:absolute;inset:70% 6% auto;border-top:1px solid #95674c66}
+.lamp-trail button {width:48px;height:48px;display:grid;place-items:center;position:relative}
+.earthen-lamp {position:relative;display:block;width:24px;height:8px;margin-top:12px;border-radius:0 0 50% 50% / 0 0 100% 100%;background:linear-gradient(#d09969,#754a39)}
+.earthen-lamp:before {content:"";position:absolute;bottom:10px;left:40%;width:6px;height:12px;border-radius:90% 0 80% 40%;background:#ffe2a3;transform:rotate(8deg);opacity:.1;transition:opacity .35s}
+.warm .earthen-lamp:before,.glowing .wish-lamp .earthen-lamp:before {opacity:1;box-shadow:0 0 12px #ffad5c}
+.lamp-trail [aria-current] {border-bottom:2px solid #e6b982}
+.letter-page {animation:letter-arrive .42s ease-out}
+.letter-page h1 {font:italic 500 clamp(40px,7vw,60px)/1.1 'Cormorant Garamond',Georgia,serif;color:#f1c78e;margin-bottom:24px}
+.letter-page p {font:clamp(17px,2.4vw,20px)/1.7 Georgia,serif;margin:0 0 1.05em}
+.letter-foot {border-top:1px solid #a47e594d;padding-top:12px}
+.letter-foot button:disabled {visibility:hidden}
+.letter-room button:focus-visible {outline:2px solid #ebc48b;outline-offset:2px}
+.wish-lamp {padding:24px 0 32px;text-align:center;background:radial-gradient(ellipse,#a9612312,transparent 70%)}
+.wish-lamp button {display:inline-grid;justify-items:center;gap:18px;padding:15px;color:#f7d790}
+.wish-lamp .earthen-lamp {transform:scale(1.65)}
+.glowing .wish-lamp {background:radial-gradient(ellipse,#ac632d48,transparent 70%)}
+.wish-lamp p {font:italic 26px Georgia,serif;animation:letter-arrive .6s ease-out}
+@keyframes letter-arrive {from{opacity:.1;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.letter-room *{animation:none!important;transition:none!important}}

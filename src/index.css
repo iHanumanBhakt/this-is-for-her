@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #08060a;
+    color: #fef3c7;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Seamless gradient mask for tumbler fading */
+.tumbler-fade-mask {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
+}
+
+.serif-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.gold-foil {
+  background: linear-gradient(180deg, #fffbeb 0%, #fde68a 35%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
