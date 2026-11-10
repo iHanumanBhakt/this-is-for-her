@@ -22,3 +22,31 @@
 .wish-lamp p {font:italic 26px Georgia,serif;animation:letter-arrive .6s ease-out}
 @keyframes letter-arrive {from{opacity:.1;transform:translateY(7px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.letter-room *{animation:none!important;transition:none!important}}
+.film-ending {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  background: #090808;
+  color: #eee5d6;
+  animation: letter-arrive-black .5s ease both;
+}
+.film-ending h1 {
+  font: italic 400 clamp(54px, 9vw, 100px)/1.1 'Cormorant Garamond', Georgia, serif;
+  animation: letter-arrive-black 1.6s ease .45s both;
+}
+.ending-replay {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  min-height: 44px;
+  padding: 0 16px;
+  color: #b5aaa0;
+  font: 14px Georgia, serif;
+  animation: letter-arrive-black .6s ease 2.5s both;
+}
+.ending-replay:focus-visible { animation: none; outline: 1px solid currentColor }
+@keyframes letter-arrive-black { from { opacity: 0 } to { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) {
+  .film-ending, .film-ending h1, .ending-replay { animation: none }
+}

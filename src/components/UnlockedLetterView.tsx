@@ -23,10 +23,6 @@ const parts = [
     'Once again, a very Happy Deepawali tumko.',
     'Jai Siya Ram',
   ],
-  [
-    'Itna saara padhne ke liye thank you, Priya. Tumne apne din mein se thoda waqt meri baaton ke liye nikala, ye mere liye bahut maayne rakhta hai.',
-    'Ye aakhri diya tumhare liye hai. Dua hai ki iss saal tumhe hasne ki bahut si wajah milein, aur apne liye bhi thoda sukoon bhara waqt. Apna khayal rakhna.',
-  ],
 ];
 
 export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
@@ -37,8 +33,14 @@ export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
     window.scrollTo(0, 0);
     heading.current?.focus({ preventScroll: true });
   }, [part]);
-  const titles = ['Diwali ki baatein', 'Us din ke lie', 'Ek choti si baat', 'Dil se', 'Thank you, Priya'];
+  const titles = ['Diwali ki baatein', 'Us din ke lie', 'Ek choti si baat', 'Dil se'];
   const last = part === parts.length - 1;
+  if (part === parts.length) {
+    return <section className="film-ending" aria-labelledby="end-title">
+      <h1 id="end-title" ref={heading} tabIndex={-1}>Thank you</h1>
+      <button className="ending-replay" onClick={() => setPart(0)}>Read again</button>
+    </section>;
+  }
   return <article className={'letter-room' + (last && lit ? ' glowing' : '')}>
     <div className="letter-sheet">
       <header className="letter-tools">
@@ -66,7 +68,7 @@ export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
       </div>}
       <nav className="letter-foot" aria-label="Letter pages">
         <button disabled={part === 0} onClick={() => setPart(part - 1)}>← Back</button>
-        <button onClick={() => setPart(last ? 0 : part + 1)}>{last ? 'Read again' : 'Next part'} →</button>
+        <button onClick={() => setPart(part + 1)}>{last ? 'Finish' : 'Next part'} →</button>
       </nav>
     </div>
   </article>;
