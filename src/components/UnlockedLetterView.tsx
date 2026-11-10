@@ -1,4 +1,5 @@
 import './letter.css';
+import { Volume2, VolumeX } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const parts = [
@@ -29,6 +30,29 @@ export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
   const [part, setPart] = useState(0);
   const [lit, setLit] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
+  const music = useRef<HTMLAudioElement | null>(null);
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => () => music.current?.pause(), []);
+
+  function playClosingTheme() {
+    if (!music.current) {
+      const player = new Audio(new URL('../assets/closing-theme.mp3', import.meta.url).href);
+      player.loop = true;
+      player.volume = 0.65;
+      player.onplaying = () => setPlaying(true);
+      player.onpause = () => setPlaying(false);
+      music.current = player;
+    }
+    void music.current.play().catch(() => setPlaying(false));
+  }
+
+  function replayLetter() {
+    if (music.current) {
+      music.current.pause();
+      music.current.currentTime = 0;
+    }
+    setPart(0);
+  }
   useEffect(() => {
     window.scrollTo(0, 0);
     heading.current?.focus({ preventScroll: true });
@@ -37,8 +61,20 @@ export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
   const last = part === parts.length - 1;
   if (part === parts.length) {
     return <section className="film-ending" aria-labelledby="end-title">
+      <div className="ending-atmosphere" aria-hidden="true">
+        {Array.from({ length: 24 }, (_, i) => <i key={i} style={{
+          left: ((i * 37 + 8) % 100) + '%',
+          top: ((i * 19 + 12) % 100) + '%',
+          animationDelay: -(i * 2.7) + 's',
+          animationDuration: (9 + i % 8) + 's',
+        }} />)}
+      </div>
       <h1 id="end-title" ref={heading} tabIndex={-1}>Thank you</h1>
-      <button className="ending-replay" onClick={() => setPart(0)}>Read again</button>
+      <button className="ending-sound" aria-label={playing ? 'Pause music' : 'Play music'}
+        onClick={() => playing ? music.current?.pause() : playClosingTheme()}>
+        {playing ? <Volume2 size={19} /> : <VolumeX size={19} />}
+      </button>
+      <button className="ending-replay" onClick={replayLetter}>Read again</button>
     </section>;
   }
   return <article className={'letter-room' + (last && lit ? ' glowing' : '')}>
@@ -68,7 +104,10 @@ export function UnlockedLetterView({ onRelock }: { onRelock: () => void }) {
       </div>}
       <nav className="letter-foot" aria-label="Letter pages">
         <button disabled={part === 0} onClick={() => setPart(part - 1)}>← Back</button>
-        <button onClick={() => setPart(part + 1)}>{last ? 'Finish' : 'Next part'} →</button>
+        <button onClick={() => {
+          if (last) playClosingTheme();
+          setPart(part + 1);
+        }}>{last ? 'Finish' : 'Next part'} →</button>
       </nav>
     </div>
   </article>;

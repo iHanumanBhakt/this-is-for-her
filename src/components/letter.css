@@ -33,8 +33,56 @@
   animation: letter-arrive-black .5s ease both;
 }
 .film-ending h1 {
+  position: relative;
+  text-shadow: 0 0 36px #f4cb862c;
   font: italic 400 clamp(54px, 9vw, 100px)/1.1 'Cormorant Garamond', Georgia, serif;
   animation: letter-arrive-black 1.6s ease .45s both;
+}
+.ending-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 110%, #261b18, transparent 64%);
+}
+.ending-atmosphere::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(ellipse at 23% 72%, #a064342e, transparent 35%),
+    radial-gradient(ellipse at 79% 35%, #78574c27, transparent 32%);
+  animation: drift-light 17s ease-in-out infinite alternate;
+}
+.ending-atmosphere i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #edc284;
+  box-shadow: 0 0 8px 2px #d49b5544;
+  animation: float-ember 12s ease-in-out infinite;
+}
+.ending-atmosphere i:nth-child(3n) { width: 5px; height: 5px; filter: blur(2px) }
+.ending-sound {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: #d5c0a0;
+}
+.ending-sound:focus-visible { outline: 1px solid currentColor }
+@keyframes drift-light {
+  from { transform: translate(-4%, 3%) }
+  to { transform: translate(6%, -5%) }
+}
+@keyframes float-ember {
+  0%, 100% { opacity: 0 }
+  35% { opacity: .65 }
+  from { transform: translate(-12px, 55px) }
+  to { transform: translate(24px, -80px) }
 }
 .ending-replay {
   position: absolute;
@@ -49,4 +97,6 @@
 @keyframes letter-arrive-black { from { opacity: 0 } to { opacity: 1 } }
 @media (prefers-reduced-motion: reduce) {
   .film-ending, .film-ending h1, .ending-replay { animation: none }
+  .ending-atmosphere::before, .ending-atmosphere i { animation: none }
+  .ending-atmosphere i { opacity: .32 }
 }
